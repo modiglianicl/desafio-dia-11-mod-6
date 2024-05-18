@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes</title>
+</head>
+<body>
+    <h2>Hombres</h2>
+    <ol id="hombres">
+
+    </ol>
+    <h2>Mujeres</h2>
+    <ol id="mujeres">
+
+    </ol>
+
+    <script>
+        // obtenemos datos de hombres
+        fetch('/apirandom')
+            .then(response => response.json())
+            .then(data => {
+                const infoUsuarios = document.getElementById('hombres');
+                for (let i = 0; i< data.length ; i++) {
+                    infoUsuarios.innerHTML += `<li>
+                    <p>Nombre : ${data[0][i].name.first} - Apellido : ${data[0][i].name.last} - ID : ${data[0][i].idUsuario} - Timestamp : ${data[0][i].fechaRegistro}</p>
+                    </li>
+                `;
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        // obtenemos datos de mujeres
+        fetch('/apirandom')
+            .then(response => response.json())
+            .then(data => {
+                const infoUsuarios = document.getElementById('mujeres');
+                for (let i = 0; i< data.length ; i++) {
+                    infoUsuarios.innerHTML += `<li>
+                    <p>Nombre : ${data[1][i].name.first} - Apellido : ${data[1][i].name.last} - ID : ${data[1][i].idUsuario} - Timestamp : ${data[1][i].fechaRegistro}</p>
+                    </li>
+                `;
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        </script>
+    </body>
+</html>

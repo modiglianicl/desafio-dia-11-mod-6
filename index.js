@@ -4,11 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import chalk from 'chalk';
 import moment from 'moment';
 import _ from 'lodash';
-
+import path from 'path'
+const __dirname = path.resolve()
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.get('/',async (req,res) => {
+app.get('/apirandom',async (req,res) => {
     // Fecth con axios
     const response = await axios.get('https://randomuser.me/api/?results=50');
     const objectData = response.data;
@@ -25,13 +26,18 @@ app.get('/',async (req,res) => {
     let [hombres,mujeres] = _.partition(userData, (n) => n.gender == 'male'); // Cree una lista para ambos, ya que se hace mas entendible el logeo
     // Imprimiendo hombres
     for(let i = 0; i< hombres.length; i++) {
-        console.log(chalk.white.bgWhite(JSON.stringify(hombres[i])))
+        console.log(chalk.blue.bgWhite(JSON.stringify(hombres[i])))
+
     }
     // Imprimiendo mujeres
     for(let i = 0; i< mujeres.length; i++) {
-        console.log(chalk.white.bgWhite(JSON.stringify(mujeres[i])))
+        console.log(chalk.blue.bgWhite(JSON.stringify(mujeres[i])))
     }
     
+})
+
+app.get('/usuarios',(req,res)=>{
+    res.sendFile(__dirname + '/index.html')
 })
 
 
